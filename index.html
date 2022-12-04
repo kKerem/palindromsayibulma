@@ -2,69 +2,59 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 <script>
-	var N = 20;
-	
-	function main(n){
-	
-		var baslama_sayi=n;
-		var m=0;
-		var sayi = "";
-		var kontrol=1;
-		if(palindrommu(n)) {kontrol=0; sayi+=n};
-	
-	
-		sayi += "<div class=\"row fw-bold\"><div class=\"col-1 pe-0 text-end\">Adım</div><div class=\"col-3 text-end\">Sayı</div><div class=\"col-auto text-invisible\">+</div><div class=\"col-2\">Tersi</div><div class=\"col-auto text-invisible\">=</div><div class=\"col-2\">Toplam</div><div class=\"col text-start\">Kontrol</div></div>"
-		for(var i = 1; i<= N; ++i)
-		{
-			m = n+reverse(n);
-			if (palindrommu(m)) {
-				sayi += "<div class=\"row fw-bold\"><div class=\"col-1 pe-0 text-end\">"+i+"</div><div class=\"col-3 text-end\">"+n+"</div><div class=\"col-auto text-muted\">+</div><div class=\"col-2\">"+reverse(n)+"</div><div class=\"col-auto text-muted\">=</div><div class=\"col-2 text-start\">"+m+"</div><div class=\"col text-start text-success\"><i class=\"bi bi-check-circle-fill pe-2\"></i>Palindrom</div></div>"
-			}
-			else {
-				sayi += "<div class=\"row\"><div class=\"col-1 pe-0 text-end\">"+i+"</div><div class=\"col-3 text-end\">"+n+"</div><div class=\"col-auto text-muted\">+</div><div class=\"col-2\">"+reverse(n)+"</div><div class=\"col-auto text-muted\">=</div><div class=\"col-2 text-start\">"+m+"</div><div class=\"col text-start\"> </div></div>"
-			}
-			
-			n =m;
+var N = 20;
+function main(n){
+	var baslama_sayi=n;
+	var m=0;
+	var sayi = "";
+	var kontrol=1;
+	if(palindrommu(n)) {kontrol=0; sayi+=n};
+	sayi += "<div class=\"row fw-bold\"><div class=\"col-1 pe-0 text-end\">Derinlik</div><div class=\"col-3 text-end\">Sayı</div><div class=\"col-auto text-invisible\">+</div><div class=\"col-2\">Tersi</div><div class=\"col-auto text-invisible\">=</div><div class=\"col-2\">Toplam</div><div class=\"col text-start\">Kontrol</div></div>"
+	for(var i = 1; i<= N; ++i)
+	{
+		m = n+reverse(n);
+		if (palindrommu(m)) {
+			sayi += "<div class=\"row fw-bold\"><div class=\"col-1 pe-0 text-end\">"+i+"</div><div class=\"col-3 text-end\">"+n+"</div><div class=\"col-auto text-muted\">+</div><div class=\"col-2\">"+reverse(n)+"</div><div class=\"col-auto text-muted\">=</div><div class=\"col-2 text-start\">"+m+"</div><div class=\"col text-start text-success\"><i class=\"bi bi-check-circle-fill pe-2\"></i>Palindrom</div></div>"
 		}
-	
-	if (kontrol == 0) {
-		document.getElementById("h").innerHTML = sayi 
+		else {
+			sayi += "<div class=\"row\"><div class=\"col-1 pe-0 text-end\">"+i+"</div><div class=\"col-3 text-end\">"+n+"</div><div class=\"col-auto text-muted\">+</div><div class=\"col-2\">"+reverse(n)+"</div><div class=\"col-auto text-muted\">=</div><div class=\"col-2 text-start\">"+m+"</div><div class=\"col text-start\"> </div></div>"
+		}
+		n =m;
 	}
-	else
-		document.getElementById("h").innerHTML = sayi;
-	}
-	
-	function reverse(n){
-	
-		var new_n=0;
-		var num_digits = Math.floor(Math.log(n)/Math.log(10)+.000000000000001)+1;
-	
-		for(i =0; i< num_digits; ++i)
-			  new_n += (Math.floor(n/Math.pow(10,i)) % 10)*Math.pow(10,num_digits-i-1);
-	
-		return new_n;
-	}
-	
-	
-	
-	function palindrommu(n){
-		var num_digits = Math.floor(Math.log(n)/Math.log(10)+.000000000000001)+1;
-		m=reverse(n);
-		for(i =0; i< num_digits/2; ++i)
-			if (Math.floor(n/Math.pow(10,i)) % 10 != Math.floor(m/Math.pow(10,i)) % 10)
-				return false;
-		return true;
-	}
-	$('[data-onload]').each(function(){
-		main(parseInt(num.value))
-	});
-	</script>
-	<style>
-		.say>#h>.row:nth-child(2n+1){background-color: rgba(0,0,0,.1);}
-		.say>#h>.row:nth-child(2n+2){background-color: rgba(0,0,0,.05);}
-		.say>#h>.row:hover{background-color: rgba(0,0,0,.2);}
-		.text-invisible{color:rgba(255,255,255,0)}
-	</style>
+if (kontrol == 0) {
+	document.getElementById("h").innerHTML = sayi 
+}
+else
+	document.getElementById("h").innerHTML = sayi;
+}
+function reverse(n){
+
+	var new_n=0;
+	var num_digits = Math.floor(Math.log(n)/Math.log(10)+.001)+1;
+
+	for(i =0; i< num_digits; ++i)
+			new_n += (Math.floor(n/Math.pow(10,i)) % 10)*Math.pow(10,num_digits-i-1);
+
+	return new_n;
+}
+function palindrommu(n){
+	var num_digits = Math.floor(Math.log(n)/Math.log(10)+.001)+1;
+	m=reverse(n);
+	for(i =0; i< num_digits/2; ++i)
+		if (Math.floor(n/Math.pow(10,i)) % 10 != Math.floor(m/Math.pow(10,i)) % 10)
+			return false;
+	return true;
+}
+$('[data-onload]').each(function(){
+	main(parseInt(num.value))
+});
+</script>
+<style>
+	.say>#h>.row:nth-child(2n+1){background-color: rgba(0,0,0,.1);}
+	.say>#h>.row:nth-child(2n+2){background-color: rgba(0,0,0,.05);}
+	.say>#h>.row:hover{background-color: rgba(0,0,0,.2);}
+	.text-invisible{color:rgba(255,255,255,0)}
+</style>
 <body onload="main(parseInt(num.value))">
 
 <div class="container-fluid">
